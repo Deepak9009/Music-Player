@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6c500d8303.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://kit.fontawesome.com/6c500d8303.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+ <!-- <script src="script.js"></script> -->
+  <title>Music Player</title>
+</head>
+<body> 
+  
+  <div class="main_div">
+    <div class="music_container">
+      <h2 id="title">Song Name</h2>
+      <h3 id="artist">Deepak </h3>
+      <div class="img_container">
+        <img src="images/img1.jpg" alt="img1">
+      </div>
+      <audio src="music/m1.mp3"></audio>
+      <div class="music_controls">
+        <i class="fa-solid fa-backward-fast" id="prev" title="Previous"></i>
+        <i class="fa-sharp fa-solid fa-circle-play main_button" id="play" title="Play"></i>
+        <i class="fa-solid fa-forward-fast" id="next" title="Next"></i>
+      </div>
+    </div>
+  </div>
+ <script>
+  const music = document.querySelector("audio");
+  const img=document.querySelector("img");
+  const artist=document.getElementById("artist");
+  const title=document.getElementById("title");
+  const prev=document.getElementById("prev");
+  const next=document.getElementById("next");
+   const songs=[{
+    name:"m1",
+    title:'Music1',
+    artist:"Deepak",
+    image:"img1",
+   },
+   {
+    name:"m2",
+    title:'Music2',
+    artist:"Rajput",
+    image:"img2",
+   },{
+    name:"m3",
+    title:'Music3',
+    artist:"Chandu",
+    image:"img3",
+   }]
+   let isPlaying=false;
+   //for play function
+   const playmusic=()=>{
+    music.play();
+    isPlaying=true;
+    play.classList.replace( "fa-circle-play","fa-circle-pause");
+    img.classList.add("anime");
+};
+    //for pause fumction
+   const pausemusic=()=>{
+    music.pause();
+   isPlaying=false;
+    play.classList.replace("fa-circle-pause","fa-circle-play");
+    img.classList.remove("anime");
+};
+   play.addEventListener('click',()=>{
+    if(isPlaying){pausemusic();}
+    else{
+      playmusic();
+    }
+   });
+   const loadsong=(songs)=>{
+      title.textContent=songs.title;
+      artist.textContent=songs.artist;
+      music.src=`music/${songs.name}.mp3`;
+      img.src=`images/${songs.image}.jpg`;
+   };
+    // changing track
+    
+    var i=0;
+    const nextSong=()=>{
+      loadsong(songs[(i+1)%songs.length]);
+      i+=1;
+      playmusic();
+    }
+    const prevSong=()=>{
+      loadsong(songs[(i-1)%songs.length]);
+      i-=1;
+      playmusic();
+    }
+    next.addEventListener('click',nextSong);
+    prev.addEventListener('click',prevSong);
+ </script>
+</body>
+</html>
